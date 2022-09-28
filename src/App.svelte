@@ -11,9 +11,10 @@
   let elaspedTime: number = 0;
   let oldElapsedTime: number = 0;
   let interval: any;
-  let gameStatus: Boolean = false;
+  let gameStatus: boolean = false;
   let randomColor = () => Math.floor(Math.random() * 167727215).toString(16);
   
+  let winnerTable: boolean = false;
   const pad2 = (number: number) => `00${number}`.slice(-2);
   const pad3 = (number: number) => `00${number}`.slice(-2);
   let Game:{
@@ -92,8 +93,18 @@
           if (state === STATE.RUNNING) {
               const endTime = Date.now();
               elaspedTime = endTime - startTime + oldElapsedTime;
+
           }
       });
+  };
+  const reset = () => {
+          elaspedTime = 0;
+          state = STATE.NEW;
+          clearInterval(interval);
+      };
+const pause = () => {
+    state = STATE.PAUSED;
+    oldElapsedTime = elaspedTime;
   };
   const place = (key) => {
       switch (key) {
@@ -111,16 +122,13 @@
   shuffle(Squares_list)
   
   $: if(Squares_list.every(item=>item.found == true)){
-      const reset = () => {
-          elaspedTime = 0;
-          state = STATE.NEW;
-          clearInterval(interval);
-      };
+      
       addToList();
       gameStatus = !gameStatus
       Squares_list.filter(item=>{item.found=false,item.status = false})
       shuffle(Squares_list);
-      reset()
+      pause()
+      winnerTable = true;
   };
   const handleClick = (i) => {
       if (!gameStatus) {
@@ -165,21 +173,21 @@
     
   </script>
 <div class="grid h-screen place-items-center">
-    <div class="grid overflow-hidden auto-cols-auto auto-rows-auto gap-2 grid-flow-row">
+    <div class="grid overflow-hidden auto-cols-auto auto-rows-auto gap-2 grid-flow-row place-items-center">
         <div class="min-w-full min-h-full row-span-1 col-start-1 sm:col-span-2 ">
             <p class="text-2xl sm:text-2xl md:text-4xl mb-2">Ustaw plansze:</p>
             {#each Board as button,id}
-            <button class="{button.status?'btn btn-active btn-primary btn-lg md:btn-lg sm:btn-sm mx-1':'btn btn-outline btn-lg btn-primary md:btn-lg sm:btn-sm mx-1'}" on:click={()=>changeBoard(id)}>{button.title}</button>
+            <button disabled='{gameStatus}' class="{button.status?'btn btn-active btn-primary btn-lg md:btn-lg sm:btn-sm mx-2':'btn btn-outline btn-lg btn-primary md:btn-lg sm:btn-sm mx-2'}" on:click={()=>changeBoard(id)}>{button.title}</button>
             {/each}
         </div>
-        <div class="min-w-full min-h-full row-span-3 bg-red-500 rounded">
-            <div class="{Board[0].status?'grid grid-cols-3 gap-3 m-4':'grid grid-cols-4 gap-3 m-4'}" >
+        <div class="min-w-full row-span-3">
+            <div class="{Board[0].status?'grid grid-cols-3 gap-3 m-4':'grid grid-cols-4 gap-3 ms:gap-2 m-4'}" >
             {#each Squares_list as tile, id}
-            <button class="sm:text-2xl md:text-4xl content-center text-center md:w-32 md:h-32 {tile.found?'solved':''} {Board[0].status?'w-24 h-24':'w-16 h-16'} bg-zinc-900" on:click={()=>handleClick(id)}>{tile.status || tile.found?tile.value:'?'}</button>
+            <button class="sm:text-xl md:text-2xl content-center text-center aspect-square w-[100px] {tile.found?'solved':''} {Board[0].status?'w-20 h-20':'w-16 h-16 text-lg'} bg-zinc-900" on:click={()=>handleClick(id)}>{tile.status || tile.found?tile.value:'?'}</button>
             {/each}
             </div>
         </div>
-        <div class="bg-red-500 text-2xl sm:text-2xl md:text-4xl w-64 font-semibold p-2 px-7 grid row-span-1 rounded place-items-center place-content-center">
+        <div class="bg-white text-2xl sm:text-2xl md:text-4xl w-64 font-semibold text-black p-2 px-7 grid row-span-1 rounded place-items-center place-content-center ">
             <p>{formattedElaspedTime}</p>
         </div>
         <div class="overflow-x-auto">
@@ -196,6 +204,17 @@
             </table>
           </div>
     </div>
+<!-- Put this part before </body> tag -->
+<input type="checkbox" id="my-modal" class="modal-toggle" bind:checked={winnerTable}/>
+<div class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Gratulacje, wygrałeś! 🏆</h3>
+    <p class="py-4">Twój czas to: {formattedElaspedTime}</p>
+    <div class="modal-action">
+      <label for="my-modal" class="btn" on:click="{()=>reset()}">Yay!</label>
+    </div>
+  </div>
+</div>
 </div>
 <style global lang="postcss">
   @tailwind base;
@@ -209,5 +228,8 @@
     background-color: blue;
     animation-name: example;
     animation-duration: 1s;
+  }
+  .size{
+    width: calc((100%/3)-20px);
   }
 </style>
