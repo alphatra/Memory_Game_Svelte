@@ -1,10 +1,16 @@
 
 # Memory Game
+
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/alphatra/Memory_Game_Svelte/blob/main/README.md)
 
 Memory game made in svelte.
 Project based on assignment from [zakoduj.to](https://www.zakoduj.to/projekty/gra-memory)
 ![app](https://user-images.githubusercontent.com/18601134/193125009-4a5186e4-eaf0-46eb-a988-e455cc239c6b.gif)
+
+## ⛓ Links
+
+[online version](https://www.zakoduj.to/projekty/gra-memory)
+[stackblitz](https://stackblitz.com/github/alphatra/Memory_Game_Svelte?file=README.md)
 
 ## 🏁 Run Locally
 
@@ -19,9 +25,11 @@ Clone the project
 
 
 ## 📝 Todo
+
 - [ ]  Show all cards before game beginning
 - [ ]  Make multiplayer version
 - [ ]  Sort every score by time
+
 ## Contributing
 
 Contributions are always welcome!
