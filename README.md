@@ -1,7 +1,6 @@
 
 # Memory Game
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/alphatra/Memory_Game_Svelte/blob/main/README.md)
-[![pl](https://img.shields.io/badge/lang-pl-red.svg)](https://github.com/alphatra/Memory_Game_Svelte/blob/main/README.md)
 
 Memory game made in svelte.
 Project based on assignment from [zakoduj.to](https://www.zakoduj.to/projekty/gra-memory)
