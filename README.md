@@ -9,8 +9,8 @@ Project based on assignment from [zakoduj.to](https://www.zakoduj.to/projekty/gr
 
 ## ⛓ Links
 
-[online version](https://www.zakoduj.to/projekty/gra-memory)
-[stackblitz](https://stackblitz.com/github/alphatra/Memory_Game_Svelte?file=README.md)
+online version - https://www.zakoduj.to/projekty/gra-memory
+stackblitz - https://stackblitz.com/github/alphatra/Memory_Game_Svelte?file=README.md
 
 ## 🏁 Run Locally
 
