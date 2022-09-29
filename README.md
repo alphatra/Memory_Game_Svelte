@@ -5,6 +5,7 @@
 
 Memory game made in svelte.
 Project based on assignment from [zakoduj.to](https://www.zakoduj.to/projekty/gra-memory)
+![app](https://user-images.githubusercontent.com/18601134/193125009-4a5186e4-eaf0-46eb-a988-e455cc239c6b.gif)
 
 ## 🏁 Run Locally
 
